@@ -9,8 +9,8 @@ from bs4 import BeautifulSoup
 
 URL = "https://minsk.gov.by/ru/freepage/other/arendnoe_zhiljo/"
 
-BOT_TOKEN = os.getenv("BOT_TOKEN", "7660220912:AAEcwSBMJM88jyJkeNLScLi6LV2_-stzADM")
-CHAT_ID = os.getenv("CHAT_ID", "-1003097916199")
+BOT_TOKEN = os.getenv("BOT_TOKEN", "")
+CHAT_ID = os.getenv("CHAT_ID", "")
 DATA_FILE = "state.json"
 CHECK_INTERVAL = 120  # 2 минуты
 
@@ -28,13 +28,31 @@ def send_telegram(text: str) -> None:
         print(f"[ERROR] Telegram: {e}")
 
 def fetch_html() -> str:
-    r = httpx.get(URL, timeout=30)
-    r.raise_for_status()
-    return r.text
+    """Загрузка HTML с сайта с защитой от ошибок."""
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/127.0.0.1 Safari/537.36"
+        )
+    }
+    try:
+        r = httpx.get(URL, headers=headers, timeout=30)
+        r.raise_for_status()
+        return r.text
+    except httpx.HTTPStatusError as e:
+        print(f"[ERROR] HTTP ошибка {e.response.status_code}: {e}")
+    except httpx.RequestError as e:
+        print(f"[ERROR] Ошибка сети: {e}")
+    except Exception as e:
+        print(f"[ERROR] Неизвестная ошибка: {e}")
+    return ""
 
 def parse_flats() -> Dict[str, str]:
     """Собираем список строк (каждая квартира как строка)."""
     html = fetch_html()
+    if not html:
+        return {}
     soup = BeautifulSoup(html, "html.parser")
     flats: Dict[str, str] = {}
     for table in soup.find_all("table"):
@@ -61,6 +79,10 @@ def tick_once(first_run=False):
     old = load_state()
     new = parse_flats()
     ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    if not new:
+        print(f"[{ts}] Сайт недоступен, пробую позже")
+        return
 
     if first_run:
         count = len(new)
