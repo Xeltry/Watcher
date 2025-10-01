@@ -19,7 +19,7 @@ BOT_TOKEN = os.getenv("7660220912:AAEcwSBMJM88jyJkeNLScLi6LV2_-stzADM")
 CHAT_ID = os.getenv("-1003097916199")
 DATA_FILE = os.getenv("DATA_FILE", "/mnt/data/state.json")  # Railway Volume
 CHECK_INTERVAL = int(os.getenv("CHECK_INTERVAL", "240"))    # 4 минуты
-WORK_HOURS = (8, 20)  # локальное время Минска
+WORK_HOURS = (0, 24)  # локальное время Минска
 TIMEZONE = os.getenv("TZ", "Europe/Minsk")  # можно переопределить
 MAX_MSG_LEN = 4000
 
@@ -289,6 +289,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
