@@ -218,7 +218,7 @@ def tick_once(first_run=False):
             send_telegram("\n".join(msg_lines))
             logging.info("Первичный запуск: сообщение отправлено")
 
-    else:
+        else:
             added, removed, changed = [], [], []
 
             for k, v in new.items():
@@ -263,12 +263,15 @@ def tick_once(first_run=False):
                     f"Изменения: добавлено {len(added)}, "
                     f"убрано {len(removed)}, изменено {len(changed)}"
                 )
+            else:
+                logging.info("Изменений нет")
 
         # сохраняем новое состояние
         save_state(new)
 
     except Exception as e:
         logging.exception(f"tick_once: неперехваченное исключение: {e}")
+
 
 
 # --- Основной цикл ---
@@ -286,5 +289,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
