@@ -1,0 +1,21 @@
+{
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "python parser.py"
+  },
+  "variables": {
+    "TZ": "Europe/Minsk",
+    "DATA_FILE": "/mnt/data/state.json",
+    "CHECK_INTERVAL": "240",
+    "BOT_TOKEN": "ВАШ_ТОКЕН_ОТ_BOTFATHER",
+    "CHAT_ID": "ВАШ_CHAT_ID"
+  },
+  "volumes": [
+    {
+      "mountPath": "/mnt/data",
+      "name": "watcher-data"
+    }
+  ]
+}
