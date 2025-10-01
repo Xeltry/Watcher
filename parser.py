@@ -15,8 +15,8 @@ from zoneinfo import ZoneInfo   # для часового пояса
 
 # --- Конфигурация ---
 URL = "https://minsk.gov.by/ru/freepage/other/arendnoe_zhiljo/"
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-CHAT_ID = os.getenv("CHAT_ID")
+BOT_TOKEN = os.getenv("7660220912:AAEcwSBMJM88jyJkeNLScLi6LV2_-stzADM")
+CHAT_ID = os.getenv("-1003097916199")
 DATA_FILE = os.getenv("DATA_FILE", "/mnt/data/state.json")  # Railway Volume
 CHECK_INTERVAL = int(os.getenv("CHECK_INTERVAL", "240"))    # 4 минуты
 WORK_HOURS = (8, 20)  # локальное время Минска
@@ -286,3 +286,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
