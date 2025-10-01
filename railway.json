@@ -9,8 +9,8 @@
     "TZ": "Europe/Minsk",
     "DATA_FILE": "/mnt/data/state.json",
     "CHECK_INTERVAL": "240",
-    "BOT_TOKEN": "ВАШ_ТОКЕН_ОТ_BOTFATHER",
-    "CHAT_ID": "ВАШ_CHAT_ID"
+    "BOT_TOKEN": "7660220912:AAEcwSBMJM88jyJkeNLScLi6LV2_-stzADM",
+    "CHAT_ID": "-1003097916199"
   },
   "volumes": [
     {
@@ -19,3 +19,4 @@
     }
   ]
 }
+
